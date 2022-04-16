@@ -11,3 +11,13 @@ System.out.println(cpcaExtractor.encodeJson(cpcaSeg));<br>
 
 # 结果显示：<br>
 {"provinceName":"浙江省","cityName":"杭州市","areaName":"拱墅区","cpcaCode":"330105","address":"祥园路300号","provinceNameIndex":{"beginIndex":0,"endIndex":3},"cityNameIndex":{"beginIndex":3,"endIndex":6},"areaNameIndex":{"beginIndex":6,"endIndex":9}}
+
+# 中国行政区（县）这一级别有重名，只有区县时没法确定是哪个区（县），这个时候需要通过umap参数来指定用哪个区（县)，比如解析朝阳区的地址：<br>
+Map<String, String> umap = new HashMap<>();<br>
+umap.put("朝阳区", "110105");<br>
+CpcaSeg cpcaSeg = cpcaExtractor.transform("朝阳区汉庭酒店大山子店", umap);<br>
+System.out.println(cpcaExtractor.encodeJson(cpcaSeg));<br>
+
+# 结果显示：<br>
+{"provinceName":"吉林省","cityName":"长春市","areaName":"朝阳区","cpcaCode":"220104","address":"汉庭酒店大山子店","areaNameIndex":{"beginIndex":0,"endIndex":3}}
+
