@@ -5,7 +5,7 @@ java版本用于从中国地址提取省、市、区（县）<br>
 省市区数据来自数据来自国家统计局网站公开数据<br>
 
 #Get Started<br>
-CpcaExtractorImpl cpcaExtractor = new CpcaExtractorImpl("adcodes.csv");<br>
+CpcaExtractor cpcaExtractor = CpcaExtractors.builder().withCpcaCvsFile("adcodes.csv").build();<br>
 CpcaSeg cpcaSeg = cpcaExtractor.transform("浙江省杭州市拱墅区祥园路300号");<br>
 System.out.println(cpcaExtractor.encodeJson(cpcaSeg));<br>
 
