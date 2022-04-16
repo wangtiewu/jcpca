@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- \u5c5e\u6027\u6587\u4ef6 -->
+    <property name="logDir" value="logs"/>
+
+    <!-- \u9ed8\u8ba4\u7684\u63a7\u5236\u53f0\u65e5\u5fd7\u8f93\u51fa\uff0c\u4e00\u822c\u751f\u4ea7\u73af\u5883\u90fd\u662f\u540e\u53f0\u542f\u52a8\uff0c\u8fd9\u4e2a\u6ca1\u592a\u5927\u4f5c\u7528 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!--<Encoding>UTF-8</Encoding>-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- \u914d\u7f6e\u6587\u4ef6\u8f6e\u8f6c -->
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<Encoding>UTF-8</Encoding>-->
+        <File>${logDir}/jcpca.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logDir}/history/card-apply-core.%d{yyyy-MM-dd}.log.gz</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{50}:%line [%X{trackId}] - %msg%n</pattern>
+        </layout>
+    </appender>
+    
+    <appender name="ASYNC_ROLLING_FILE" class="ch.qos.logback.classic.AsyncAppender">
+    	<appender-ref ref="logfile" />
+    	<includeCallerData>true</includeCallerData>
+	</appender>
+
+
+    <!-- \u4fee\u6539\u5176\u4ed6\u5305\u7684\u65e5\u5fd7\u8f93\u51fa\u7ea7\u522b -->
+    <logger name="org.apache.zookeeper">
+        <level value="WARN"/>
+    </logger>
+
+    <!-- root \u9ed8\u8ba4\u65e5\u5fd7\u914d\u7f6e \uff0c \u6ce8\u610f\u8fd9\u91cc\u7684\u7ea7\u522b\u54c8\uff01\u5c0f\u5fc3\u751f\u4ea7\u73af\u5883\u7528DEBUG\uff0c\u538b\u7206\u4f60\u7684\u78c1\u76d8\uff01-->
+    <root level="INFO">
+        <appender-ref ref="ASYNC_ROLLING_FILE"/>
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>
