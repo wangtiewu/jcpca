@@ -90,7 +90,7 @@ public class CpcaExtractorImplTest {
 		assertEquals("北京市", cpcaSeg.getProvinceName());
 		assertEquals("北京市", cpcaSeg.getCityName());
 		assertEquals("朝阳区", cpcaSeg.getAreaName());
-		assertEquals("朝阳区汉庭酒店大山子店", cpcaSeg.getAddress());
+		assertEquals("汉庭酒店大山子店", cpcaSeg.getAddress());
 		assertFalse(cpcaSeg.noPca());
 		cpcaSeg = cpcaExtractor.transform("徐汇区虹漕路461号58号楼5楼", umap);
 		assertEquals("上海市", cpcaSeg.getProvinceName());
@@ -176,6 +176,8 @@ public class CpcaExtractorImplTest {
 		assertEquals("杭州市", cpcaSeg.getCityName());
 		assertEquals(null, cpcaSeg.getAreaName());
 		assertEquals("杭州第十中学", cpcaSeg.getAddress());
+		cpcaSeg = cpcaExtractor.transform("天津市南开区芥园西道宜君北里10号楼3门803号");
+		System.out.println(cpcaExtractor.encodeJson(cpcaSeg));
 	}
 
 	@Test

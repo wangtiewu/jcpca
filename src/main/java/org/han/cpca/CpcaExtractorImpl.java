@@ -189,6 +189,14 @@ public class CpcaExtractorImpl implements CpcaExtractor {
 					continue;
 				}
 			}
+			if (i < (hits1.size() - 2)) {
+				Hit<MatchAddressInfo> hit2 = hits1.get(i + 2);
+				if (hit2.value.getAddressInfos() == hit.value.getAddressInfos()) {
+					hit2.value.setFullName(true);
+					hits2.add(hit2);
+					continue;
+				}
+			}
 			hits2.add(hit);
 		}
 		try {
@@ -255,6 +263,14 @@ public class CpcaExtractorImpl implements CpcaExtractor {
 						cpcaSeg.setAddress(substrLocation(location, hit.end));
 						updateCpcaSegIndex(cpcaSeg, matchAddressInfo.getAddressInfos().get(0).rank, hit.begin, hit.end);
 						return cpcaSeg;
+					}
+					else if (currentAddressInfo.rank == Rank.RANK_CITY) {
+						cityMatched = true;
+						cityFullMatched = matchAddressInfo.isFullName();
+					}
+					else if (currentAddressInfo.rank == Rank.RANK_PROVINCE) {
+						provMatched = true;
+						provFullMatched = matchAddressInfo.isFullName();
 					}
 					lastAddressInfo = currentAddressInfo;
 				} else if (provFullMatched || cityFullMatched) {
